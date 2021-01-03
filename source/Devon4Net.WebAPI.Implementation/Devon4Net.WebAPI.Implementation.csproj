@@ -40,6 +40,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.1" />
     <PackageReference Include="System.Text.Json" Version="5.0.0" />
   </ItemGroup>
 
@@ -64,6 +65,10 @@
     <None Update="Devon4Net.WebAPI.Implementation.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Business\InhabitantsManagement\Dto\" />
   </ItemGroup>
 
 </Project>

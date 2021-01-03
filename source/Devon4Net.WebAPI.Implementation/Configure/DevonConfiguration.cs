@@ -63,6 +63,7 @@ namespace Devon4Net.WebAPI.Implementation.Configure
         {
             services.SetupDatabase<TodoContext>(configuration, "Default", DatabaseType.InMemory);
             services.SetupDatabase<EmployeeContext>(configuration, "Employee", DatabaseType.InMemory);
+            services.SetupDatabase<AelContext>(configuration, "AelContext", DatabaseType.PostgreSQL, migrate:true);
         }
 
         private static void SetupJwtPolicies(ref IServiceCollection services)
