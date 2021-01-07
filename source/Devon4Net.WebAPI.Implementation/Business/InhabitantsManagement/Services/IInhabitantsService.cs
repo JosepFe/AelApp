@@ -1,50 +1,40 @@
 using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Devon4Net.WebAPI.Implementation.Business.TodoManagement.Dto;
 using Devon4Net.WebAPI.Implementation.Domain.Entities;
 
 namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services
 {
     /// <summary>
-    /// TodoService interface
+    /// InhabitantsService interface
     /// </summary>
     public interface IInhabitantsService
     {
-        ///// <summary>
-        ///// GetTodo
-        ///// </summary>
-        ///// <param name="predicate"></param>
-        ///// <returns></returns>
-        //Task<IEnumerable<TodoDto>> GetTodo(Expression<Func<Todos, bool>> predicate = null);
-
-        ///// <summary>
-        ///// GetTodoById
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <returns></returns>
-        //Task<Todos> GetTodoById(long id);
-
         /// <summary>
-        /// CreateTodo
+        /// CreateUser
         /// </summary>
         /// <param name="description"></param>
         /// <returns></returns>
-        Task<User> CreateUser(string description);
+        Task<User> CreateUser(string name);
 
-        ///// <summary>
-        ///// DeleteTodoById
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <returns></returns>
-        //Task<long> DeleteTodoById(long id);
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        Task<Guid> DeleteUser(string name, string surname);
 
-        ///// <summary>
-        ///// ModifyTodoById
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <returns></returns>
-        //Task<Todos> ModifyTodoById(long id);
+        /// <summary>
+        /// Tegister a user in a specific town
+        /// </summary>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        Task<User> RegisterUserTown(string name, string surname, string townName);
+
+        /// <summary>
+        /// Checks user belongs to a town
+        /// </summary>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        Task<User> CheckUserBelongsTown(string name, string surname, string townName);
     }
 }
