@@ -1,0 +1,18 @@
+version: '3'
+services:
+  ael:
+    build:
+      context: .
+      dockerfile: ael.dockerfile    
+    ports:
+      - "8085:8085"
+    depends_on:
+      - postgres      
+  postgres:
+    image: "postgres"
+    ports:
+      - "5902:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=changeme
+      - POSTGRES_DB=postgres
