@@ -35,12 +35,12 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> CreateUser(string todoDescription)
+        public async Task<ActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
         {
-            var a = await _inhabitantsService.CreateUser("plazaMayor");
+            var user = await _inhabitantsService.CreateUser(createUserDto.Name, createUserDto.Surname, createUserDto.Dni);
 
             Devon4NetLogger.Debug("Executing GetTodo from controller TodoController");
-            return StatusCode(StatusCodes.Status201Created, a);
+            return StatusCode(StatusCodes.Status201Created, user);
         }
 
         /// <summary>
@@ -52,12 +52,12 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> DeleteUser(string name, string surname)
+        public async Task<ActionResult> DeleteUser([FromBody] DeleteUserDto deleteUserDto)
         {
-            var a = await _inhabitantsService.DeleteUser(name, surname);
+            await _inhabitantsService.DeleteUser(deleteUserDto.Name, deleteUserDto.Surname);
 
             Devon4NetLogger.Debug("Executing GetTodo from controller TodoController");
-            return StatusCode(StatusCodes.Status201Created, a);
+            return StatusCode(StatusCodes.Status200OK);
         }
 
         /// <summary>

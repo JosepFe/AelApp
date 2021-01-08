@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Devon4Net.Domain.UnitOfWork.Repository;
 using Devon4Net.Infrastructure.Log;
-using Devon4Net.WebAPI.Implementation.Business.TodoManagement.Validators;
+using Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions;
 using Devon4Net.WebAPI.Implementation.Domain.Database;
 using Devon4Net.WebAPI.Implementation.Domain.Entities;
 using Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces;
@@ -25,57 +23,50 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
         }
 
         /// <summary>
-        /// Get TODO method
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public Task<IList<User>> GetTodo(Expression<Func<User, bool>> predicate = null)
-        {
-            Devon4NetLogger.Debug("GetUser method from TodoRepository UserService");
-            return Get(predicate);
-        }
-
-        /// <summary>
         /// Geto the TODO by id
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Task<User> GetTodoById(Guid id)
+        public Task<User> GetUserByNameAndSurname(string name, string surname)
         {
-            Devon4NetLogger.Debug($"GetUserById method from repository UserService with value : {id}");
-            return GetFirstOrDefault(t => t.Id == id);
+            Devon4NetLogger.Debug($"GetUserByNameAndSurname method from repository UserService with value : {name} & {surname}");
+            return GetFirstOrDefault(t => t.Name == name && t.Surname == surname);
         }
 
         /// <summary>
-        /// Creates the TODO
+        /// Creates User
         /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        public Task<User> Create(string name, string surname, string dni, string adress)
+        public async Task<User> Create(string name, string surname, string dni)
         {
             Devon4NetLogger.Debug($"SetUser method from repository UserService with value : {name}");
 
-            var user = new User { Name = name, Surname = surname, Dni = dni, Adress = adress };
+            var user = await GetUserByNameAndSurname(name, surname);
 
-            return Create(user);
+            if (user != null) throw new UserAlreadyExistException("User already exists");
+
+            var createUser = new User { Name = name, Surname = surname, Dni = dni};
+
+            return await Create(createUser);
         }
 
         /// <summary>
-        /// Deletes the TODO by id
+        /// Deletes the User by id
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<Guid> DeleteTodoById(Guid id)
+        public async Task DeleteUserByNameAndSuername(string name, string surname)
         {
-            Devon4NetLogger.Debug($"DeleteUserById method from repository UserService with value : {id}");
-            var deleted = await Delete(t => t.Id == id).ConfigureAwait(false);
+            Devon4NetLogger.Debug($"DeleteUserById method from repository UserService with value : {name} & {surname}");
 
-            if (deleted)
+            var user = await GetUserByNameAndSurname(name, surname).ConfigureAwait(false);
+            
+            if(user == null)
             {
-                return id;
+                throw new UserNotFoundException($"The User with name: {name} and surname: {surname} is not registered in the system");
             }
 
-            throw  new ApplicationException($"The User entity {id} has not been deleted.");
+            var deleted = await Delete(t => t.Id == user.Id).ConfigureAwait(false);
+
+            if (!deleted)
+            {
+                throw  new ApplicationException($"The User entity with name: {name} and surname: {surname} has not been deleted.");
+            }
         }
     }
 }

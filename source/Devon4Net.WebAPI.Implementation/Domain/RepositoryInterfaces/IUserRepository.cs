@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Devon4Net.Domain.UnitOfWork.Repository;
 using Devon4Net.WebAPI.Implementation.Domain.Entities;
@@ -13,31 +10,18 @@ namespace Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces
     public interface IUserRepository : IRepository<User>
     {
         /// <summary>
-        /// 
+        /// GetUserByNameAndSurname
         /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        Task<IList<User>> GetTodo(Expression<Func<User, bool>> predicate = null);
-
-        /// <summary>
-        /// GetTodoById
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<User> GetTodoById(Guid id);
+        Task<User> GetUserByNameAndSurname(string name, string surname);
 
         /// <summary>
         /// Create
         /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        Task<User> Create(string name, string surname, string dni, string adress);
+        Task<User> Create(string name, string surname, string dni);
 
         /// <summary>
         /// DeleteTodoById
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<Guid> DeleteTodoById(Guid id);
+        Task DeleteUserByNameAndSuername(string name, string surname);
     }
 }

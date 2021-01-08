@@ -184,6 +184,58 @@
             </summary>
             <param name="message">The message that describes the error.</param>
         </member>
+        <member name="T:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserAlreadyExistException">
+            <summary>
+            Custom exception EmployeeNotFoundException
+            </summary>
+        </member>
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserAlreadyExistException.StatusCode">
+            <summary>
+            The forced http status code to be fired on the exception manager
+            </summary>
+        </member>
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserAlreadyExistException.ShowMessage">
+            <summary>
+            Show the message on the response?
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserAlreadyExistException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserAlreadyExistException"/> class.
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserAlreadyExistException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserAlreadyExistException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="T:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserNotFoundException">
+            <summary>
+            Custom exception EmployeeNotFoundException
+            </summary>
+        </member>
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserNotFoundException.StatusCode">
+            <summary>
+            The forced http status code to be fired on the exception manager
+            </summary>
+        </member>
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserNotFoundException.ShowMessage">
+            <summary>
+            Show the message on the response?
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserNotFoundException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.EmployeeNotFoundException"/> class.
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.UserNotFoundException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions.EmployeeNotFoundException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Service.EmployeeService">
             <summary>
             Employee service implementation
@@ -291,13 +343,13 @@
             </summary>
             <param name="todoService"></param>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.CreateUser(System.String)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.CreateUser(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.CreateUserDto)">
             <summary>
             Creates a User
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.DeleteUser(System.String,System.String)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.DeleteUser(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.DeleteUserDto)">
             <summary>
             Delete a User
             </summary>
@@ -320,33 +372,25 @@
             InhabitantsService interface
             </summary>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.IInhabitantsService.CreateUser(System.String)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.IInhabitantsService.CreateUser(System.String,System.String,System.String)">
             <summary>
             CreateUser
             </summary>
-            <param name="description"></param>
-            <returns></returns>
         </member>
         <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.IInhabitantsService.DeleteUser(System.String,System.String)">
             <summary>
             Delete user
             </summary>
-            <param name="description"></param>
-            <returns></returns>
         </member>
         <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.IInhabitantsService.RegisterUserTown(System.String,System.String,System.String)">
             <summary>
             Tegister a user in a specific town
             </summary>
-            <param name="description"></param>
-            <returns></returns>
         </member>
         <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.IInhabitantsService.CheckUserBelongsTown(System.String,System.String,System.String)">
             <summary>
             Checks user belongs to a town
             </summary>
-            <param name="description"></param>
-            <returns></returns>
         </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.InhabitantsService">
             <summary>
@@ -359,7 +403,7 @@
             </summary>
             <param name="uoW"></param>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.InhabitantsService.CreateUser(System.String)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.InhabitantsService.CreateUser(System.String,System.String,System.String)">
             <summary>
             Creates the TODO
             </summary>
@@ -680,33 +724,20 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserRepository.GetTodo(System.Linq.Expressions.Expression{System.Func{Devon4Net.WebAPI.Implementation.Domain.Entities.User,System.Boolean}})">
-            <summary>
-            Get TODO method
-            </summary>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserRepository.GetTodoById(System.Guid)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserRepository.GetUserByNameAndSurname(System.String,System.String)">
             <summary>
             Geto the TODO by id
             </summary>
-            <param name="id"></param>
-            <returns></returns>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserRepository.Create(System.String,System.String,System.String,System.String)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserRepository.Create(System.String,System.String,System.String)">
             <summary>
-            Creates the TODO
+            Creates User
             </summary>
-            <param name="description"></param>
-            <returns></returns>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserRepository.DeleteTodoById(System.Guid)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserRepository.DeleteUserByNameAndSuername(System.String,System.String)">
             <summary>
-            Deletes the TODO by id
+            Deletes the User by id
             </summary>
-            <param name="id"></param>
-            <returns></returns>
         </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Data.Repositories.UserTownRepository">
             <summary>
@@ -954,33 +985,20 @@
             TodoRepository interface
             </summary>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserRepository.GetTodo(System.Linq.Expressions.Expression{System.Func{Devon4Net.WebAPI.Implementation.Domain.Entities.User,System.Boolean}})">
+        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserRepository.GetUserByNameAndSurname(System.String,System.String)">
             <summary>
-            
+            GetUserByNameAndSurname
             </summary>
-            <param name="predicate"></param>
-            <returns></returns>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserRepository.GetTodoById(System.Guid)">
-            <summary>
-            GetTodoById
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserRepository.Create(System.String,System.String,System.String,System.String)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserRepository.Create(System.String,System.String,System.String)">
             <summary>
             Create
             </summary>
-            <param name="description"></param>
-            <returns></returns>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserRepository.DeleteTodoById(System.Guid)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserRepository.DeleteUserByNameAndSuername(System.String,System.String)">
             <summary>
             DeleteTodoById
             </summary>
-            <param name="id"></param>
-            <returns></returns>
         </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserTownRepository">
             <summary>

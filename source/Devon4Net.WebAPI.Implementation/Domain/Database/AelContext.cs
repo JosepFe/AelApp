@@ -48,10 +48,6 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
             {
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.Adress)
-                    .IsRequired()
-                    .HasColumnType("character varying");
-
                 entity.Property(e => e.Dni)
                     .IsRequired()
                     .HasColumnType("character varying")
@@ -74,6 +70,10 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
 
                 entity.Property(e => e.RegisterDate).HasColumnType("date");
 
+                entity.Property(e => e.Adress)
+                    .IsRequired()
+                    .HasColumnType("character varying");
+
                 entity.HasOne(d => d.Town)
                     .WithMany(p => p.UserTowns)
                     .HasForeignKey(d => d.TownId)
@@ -81,8 +81,7 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
                     .HasConstraintName("user_town_fk_1");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserTowns)
-                    .HasForeignKey(d => d.UserId)
+                    .WithOne(p => p.UserTown)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_town_fk");
             });

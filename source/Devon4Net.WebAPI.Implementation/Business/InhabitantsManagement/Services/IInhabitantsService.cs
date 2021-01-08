@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller;
 using Devon4Net.WebAPI.Implementation.Domain.Entities;
 
 namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services
@@ -12,29 +13,21 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
         /// <summary>
         /// CreateUser
         /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        Task<User> CreateUser(string name);
+        Task<CreateUserDto> CreateUser(string name, string surname, string dni);
 
         /// <summary>
         /// Delete user
         /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        Task<Guid> DeleteUser(string name, string surname);
+        Task DeleteUser(string name, string surname);
 
         /// <summary>
         /// Tegister a user in a specific town
         /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
         Task<User> RegisterUserTown(string name, string surname, string townName);
 
         /// <summary>
         /// Checks user belongs to a town
         /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
         Task<User> CheckUserBelongsTown(string name, string surname, string townName);
     }
 }

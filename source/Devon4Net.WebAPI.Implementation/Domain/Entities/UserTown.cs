@@ -11,6 +11,7 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Entities
         public Guid UserId { get; set; }
         public Guid TownId { get; set; }
         public DateTime RegisterDate { get; set; }
+        public string Adress { get; set; }
 
         public virtual Town Town { get; set; }
         public virtual User User { get; set; }
