@@ -25,25 +25,14 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
         }
 
         /// <summary>
-        /// Get TODO method
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public Task<IList<UserTown>> GetTodo(Expression<Func<UserTown, bool>> predicate = null)
-        {
-            Devon4NetLogger.Debug("GetUserTown method from TodoRepository UserTownService");
-            return Get(predicate);
-        }
-
-        /// <summary>
-        /// Geto the TODO by id
+        /// Get the UserTown by userId
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<UserTown> GetTodoById(Guid id)
+        public Task<UserTown> GetTodoByUserId(Guid userId)
         {
-            Devon4NetLogger.Debug($"GetUserTownById method from repository UserTownService with value : {id}");
-            return GetFirstOrDefault(t => t.Id == id);
+            Devon4NetLogger.Debug($"GetUserTownById method from repository UserTownService with value : {userId}");
+            return GetFirstOrDefault(t => t.Id == userId);
         }
 
         /// <summary>
@@ -51,11 +40,11 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
         /// </summary>
         /// <param name="description"></param>
         /// <returns></returns>
-        public Task<UserTown> Create(Guid userId, Guid townId, DateTime registerDate)
+        public Task<UserTown> Create(Guid userId, Guid townId, DateTime registerDate, string adress)
         {
             Devon4NetLogger.Debug($"SetUserTown method from repository UserTownService with value : {userId}");
 
-            var UserTown = new UserTown { UserId = userId, TownId = townId, RegisterDate = registerDate};
+            var UserTown = new UserTown { UserId = userId, TownId = townId, RegisterDate = registerDate, Adress = adress};
 
             return Create(UserTown);
         }

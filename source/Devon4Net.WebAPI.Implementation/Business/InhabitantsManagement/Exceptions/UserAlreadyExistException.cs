@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions
+namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions
 {
     /// <summary>
     /// Custom exception EmployeeNotFoundException

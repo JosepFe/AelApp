@@ -33,7 +33,7 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
 
             modelBuilder.Entity<Town>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Community)
                     .IsRequired()
@@ -66,7 +66,7 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
             {
                 entity.ToTable("User_Town");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.RegisterDate).HasColumnType("date");
 

@@ -3,15 +3,17 @@ using System;
 using Devon4Net.WebAPI.Implementation.Domain.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Devon4Net.WebAPI.Implementation.Migrations
 {
     [DbContext(typeof(AelContext))]
-    partial class AelContextModelSnapshot : ModelSnapshot
+    [Migration("20210108135143_08012021-Ael1")]
+    partial class _08012021Ael1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

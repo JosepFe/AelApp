@@ -13,31 +13,18 @@ namespace Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces
     public interface IUserTownRepository : IRepository<UserTown>
     {
         /// <summary>
-        /// 
+        /// GetUserTown
         /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        Task<IList<UserTown>> GetTodo(Expression<Func<UserTown, bool>> predicate = null);
-
-        /// <summary>
-        /// GetTodoById
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<UserTown> GetTodoById(Guid id);
+        Task<UserTown> GetTodoByUserId(Guid userId);
 
         /// <summary>
         /// Create
         /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        Task<UserTown> Create(Guid userId, Guid townId, DateTime registerDate);
+        Task<UserTown> Create(Guid userId, Guid townId, DateTime registerDate, string adress);
 
         /// <summary>
         /// DeleteTodoById
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         Task<Guid> DeleteTodoById(Guid id);
     }
 }

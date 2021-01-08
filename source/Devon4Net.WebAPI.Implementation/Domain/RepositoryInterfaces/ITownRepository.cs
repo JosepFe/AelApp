@@ -13,6 +13,12 @@ namespace Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces
     public interface ITownRepository : IRepository<Town>
     {
         /// <summary>
+        /// GetTownByName
+        /// </summary>
+        Task<Town> GetTownByName(string townName);
+
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="predicate"></param>

@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Devon4Net.Domain.UnitOfWork.Repository;
 using Devon4Net.Infrastructure.Log;
-using Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions;
+using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions;
 using Devon4Net.WebAPI.Implementation.Domain.Database;
 using Devon4Net.WebAPI.Implementation.Domain.Entities;
 using Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces;
@@ -58,7 +58,7 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
             
             if(user == null)
             {
-                throw new UserNotFoundException($"The User with name: {name} and surname: {surname} is not registered in the system");
+                throw new NotFoundException($"The User with name: {name} and surname: {surname} is not registered in the system");
             }
 
             var deleted = await Delete(t => t.Id == user.Id).ConfigureAwait(false);

@@ -1,16 +1,14 @@
 using Devon4Net.Infrastructure.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions
+namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions
 {
     /// <summary>
     /// Custom exception EmployeeNotFoundException
     /// </summary>
     [Serializable]
-    public class UserNotFoundException : Exception, IWebApiException
+    public class NotFoundException : Exception, IWebApiException
     {
         /// <summary>
         /// The forced http status code to be fired on the exception manager
@@ -23,17 +21,17 @@ namespace Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions
         public bool ShowMessage => true;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmployeeNotFoundException"/> class.
+        /// Initializes a new instance of the <see cref="NotFoundException"/> class.
         /// </summary>
-        public UserNotFoundException()
+        public NotFoundException()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmployeeNotFoundException"/> class.
+        /// Initializes a new instance of the <see cref="NotFoundException"/> class.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
-        public UserNotFoundException(string message)
+        public NotFoundException(string message)
             : base(message)
         {
         }

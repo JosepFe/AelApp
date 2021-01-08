@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using Devon4Net.Domain.UnitOfWork.Service;
 using Devon4Net.Domain.UnitOfWork.UnitOfWork;
 using Devon4Net.Infrastructure.Log;
+using Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions;
 using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller;
+using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions;
 using Devon4Net.WebAPI.Implementation.Domain.Database;
 using Devon4Net.WebAPI.Implementation.Domain.Entities;
 using Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces;
@@ -16,6 +18,8 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
     public class InhabitantsService : Service<AelContext>, IInhabitantsService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ITownRepository _townRepository;
+        private readonly IUserTownRepository _userTownRepository;
 
         /// <summary>
         /// Constructor
@@ -24,6 +28,8 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
         public InhabitantsService(IUnitOfWork<AelContext> uoW) : base(uoW)
         {
             _userRepository = uoW.Repository<IUserRepository>();
+            _townRepository = uoW.Repository<ITownRepository>();
+            _userTownRepository = uoW.Repository<IUserTownRepository>();
         }
 
         public Task<User> CheckUserBelongsTown(string name, string surname, string townName)
@@ -60,21 +66,37 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
             await _userRepository.DeleteUserByNameAndSuername(name, surname).ConfigureAwait(false);
         }
 
-        public Task<User> RegisterUserTown(string name, string surname, string townName)
+        public async Task RegisterUserTown(string name, string surname, string townName, string adress)
         {
             Devon4NetLogger.Debug($"ModifyTodoById method from service TodoService with value : {name}, {surname}, {townName}");
 
-            //    var todo = await _todoRepository.GetFirstOrDefault(t => t.Id == id).ConfigureAwait(false);
+            var user = await _userRepository.GetUserByNameAndSurname(name, surname).ConfigureAwait(false);
 
-            //    if (todo == null)
-            //    {
-            //        throw new ArgumentException($"The provided Id {id} does not exists");
-            //    }
+            if (user == null)
+            {
+                throw new NotFoundException($"The User with name: {name} and surname: {surname} is not registered in the system");
+            }
 
-            //    todo.Done = !todo.Done;
+            var town = await _townRepository.GetTownByName(townName).ConfigureAwait(false);
 
-            //    return await _todoRepository.Update(todo).ConfigureAwait(false);
-            throw new NotImplementedException();
+            if (town == null)
+            {
+                throw new NotFoundException($"The Town with name: {townName} is not registered in the system");
+            }
+
+            var userTown = await _userTownRepository.GetTodoByUserId(user.Id).ConfigureAwait(false);
+
+            if(userTown == null)
+            {
+                await _userTownRepository.Create(user.Id, town.Id, DateTime.UtcNow, adress).ConfigureAwait(false);
+            }
+            else
+            {
+                userTown.TownId = town.Id;
+                userTown.RegisterDate = DateTime.UtcNow;
+                userTown.Adress = adress;
+                await _userTownRepository.Update(userTown).ConfigureAwait(false);
+            }
         }
     }
 }

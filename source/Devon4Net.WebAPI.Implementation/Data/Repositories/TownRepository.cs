@@ -25,6 +25,15 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
         }
 
         /// <summary>
+        /// Get the Town by name
+        /// </summary>
+        public Task<Town> GetTownByName(string townName)
+        {
+            Devon4NetLogger.Debug($"GetTownByName method from repository UserService with value : {townName}");
+            return GetFirstOrDefault(t => t.TownName == townName);
+        }
+
+        /// <summary>
         /// Get TODO method
         /// </summary>
         /// <param name="predicate"></param>
