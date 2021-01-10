@@ -126,6 +126,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.PayTaxToUser(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto.PayTaxToUserDto)">
+            <summary>
+            Check if user belongs to a town
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelNotFoundException">
             <summary>
             Custom exception EmployeeNotFoundException
@@ -154,7 +160,7 @@
         </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserAlreadyExistException">
             <summary>
-            Custom exception EmployeeNotFoundException
+            Custom exception UserAlreadyExistException
             </summary>
         </member>
         <member name="P:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserAlreadyExistException.StatusCode">
@@ -175,6 +181,58 @@
         <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserAlreadyExistException.#ctor(System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserAlreadyExistException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxAlreadyAssignedException">
+            <summary>
+            Custom exception UserTaxAlreadyAssignedException
+            </summary>
+        </member>
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxAlreadyAssignedException.StatusCode">
+            <summary>
+            The forced http status code to be fired on the exception manager
+            </summary>
+        </member>
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxAlreadyAssignedException.ShowMessage">
+            <summary>
+            Show the message on the response?
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxAlreadyAssignedException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxAlreadyAssignedException"/> class.
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxAlreadyAssignedException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxAlreadyAssignedException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxPaymentExpiredException">
+            <summary>
+            Custom exception UserTaxPaymentExpiredException
+            </summary>
+        </member>
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxPaymentExpiredException.StatusCode">
+            <summary>
+            The forced http status code to be fired on the exception manager
+            </summary>
+        </member>
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxPaymentExpiredException.ShowMessage">
+            <summary>
+            Show the message on the response?
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxPaymentExpiredException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxPaymentExpiredException"/> class.
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxPaymentExpiredException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.UserTaxPaymentExpiredException"/> class.
             </summary>
             <param name="message">The message that describes the error.</param>
         </member>
@@ -199,6 +257,16 @@
             </summary>
         </member>
         <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.IInhabitantsService.CheckUserBelongsTown(System.String,System.String,System.String)">
+            <summary>
+            Checks user belongs to a town
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.IInhabitantsService.AssignTaxToUser(System.String,System.String,System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Checks user belongs to a town
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.IInhabitantsService.PayTax(System.String,System.String,System.String,System.Int32,System.String)">
             <summary>
             Checks user belongs to a town
             </summary>
@@ -234,6 +302,16 @@
         <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.InhabitantsService.CheckUserBelongsTown(System.String,System.String,System.String)">
             <summary>
             Check if user belongs to a town
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.InhabitantsService.AssignTaxToUser(System.String,System.String,System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Assign Tax to User
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.InhabitantsService.PayTax(System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Pay Tax
             </summary>
         </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Configure.DevonConfiguration">

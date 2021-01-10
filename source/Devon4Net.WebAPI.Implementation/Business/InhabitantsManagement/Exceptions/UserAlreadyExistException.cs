@@ -7,7 +7,7 @@ using System.Text;
 namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions
 {
     /// <summary>
-    /// Custom exception EmployeeNotFoundException
+    /// Custom exception UserAlreadyExistException
     /// </summary>
     [Serializable]
     public class UserAlreadyExistException : Exception, IWebApiException

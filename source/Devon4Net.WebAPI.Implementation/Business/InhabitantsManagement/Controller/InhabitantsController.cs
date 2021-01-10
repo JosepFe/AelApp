@@ -116,5 +116,23 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
             Devon4NetLogger.Debug("Executing CheckUserBelongsTown from controller InhabitantsController");
             return StatusCode(StatusCodes.Status200OK);
         }
+
+        /// <summary>
+        /// Check if user belongs to a town
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("paytaxuser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> PayTaxToUser([FromBody] PayTaxToUserDto payTaxToUserDto)
+        {
+            await _inhabitantsService.PayTax(payTaxToUserDto.Name.ToLower(), payTaxToUserDto.Surname.ToLower(), payTaxToUserDto.TaxName.ToLower(), payTaxToUserDto.TaxYear, payTaxToUserDto.Reference.ToLower());
+
+            Devon4NetLogger.Debug("Executing CheckUserBelongsTown from controller InhabitantsController");
+            return StatusCode(StatusCodes.Status200OK);
+        }
     }
 }

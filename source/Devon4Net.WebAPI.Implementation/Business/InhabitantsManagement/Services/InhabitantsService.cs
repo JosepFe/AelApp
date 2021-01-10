@@ -145,8 +145,16 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
             }
         }
 
+        /// <summary>
+        /// Assign Tax to User
+        /// </summary>
         public async Task AssignTaxToUser(string userName, string userSurname, string taxName, int taxYear, int baseAmount, string reference)
         {
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userSurname) || string.IsNullOrEmpty(taxName) || taxYear == 0 || string.IsNullOrEmpty(reference))
+            {
+                throw new ArgumentException($"Invalid data provided");
+            }
+
             var user = await _userRepository.GetUserByNameAndSurname(userName, userSurname).ConfigureAwait(false);
 
             if (user == null)
@@ -165,18 +173,51 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
 
             if(userTax != null)
             {
-                throw new AelNotFoundException($"The Tax with name: {taxName} from year: {taxYear} is not registered in the system");
+                throw new UserTaxAlreadyAssignedException($"The Tax with name: {taxName} from year: {taxYear} and reference {reference} already assigned to user with name {userName} and surname {userSurname}");
             }
 
             await _userTaxRepository.CreateUserTax(tax.Id, user.Id, tax.TaxDeadlineDate, baseAmount, reference);
         }
 
-        public Task PayTax(string userName, string userSurname, string taxName, string taxYear)
+        /// <summary>
+        /// Pay Tax
+        /// </summary>
+        public async Task PayTax(string userName, string userSurname, string taxName, int taxYear, string reference)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userSurname) || string.IsNullOrEmpty(taxName) || taxYear == 0 || string.IsNullOrEmpty(reference))
+            {
+                throw new ArgumentException($"Invalid data provided");
+            }
+
+            var user = await _userRepository.GetUserByNameAndSurname(userName, userSurname).ConfigureAwait(false);
+
+            if (user == null)
+            {
+                throw new AelNotFoundException($"The User with name: {userName} and surname: {userSurname} is not registered in the system");
+            }
+
+            var tax = await _taxRepository.GetTownByNameAndYear(taxName, taxYear).ConfigureAwait(false);
+
+            if (tax == null)
+            {
+                throw new AelNotFoundException($"The Tax with name: {taxName} from year: {taxYear} is not registered in the system");
+            }
+
+            var userTax = await _userTaxRepository.GetUserTaxesByUserIdAndReference(user.Id, reference).ConfigureAwait(false);
+
+            if (userTax == null)
+            {
+                throw new AelNotFoundException($"The Tax with name: {taxName} from year: {taxYear} is not assigned to user with name {userName} and surname {userSurname}");
+            }
+
+            if(userTax.PaymentDeadlineDate < DateTime.UtcNow)
+            {
+                throw new UserTaxPaymentExpiredException($"The Payment Day has expired, please get the new amount");
+            }
+
+            userTax.PaymentDate = DateTime.UtcNow;
+            userTax.Paid = true;
+            await _userTaxRepository.UpdateUserTax(userTax).ConfigureAwait(false);
         }
-
-        
-
     }
 }
