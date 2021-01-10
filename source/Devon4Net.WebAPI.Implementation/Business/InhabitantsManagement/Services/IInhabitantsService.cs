@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
-using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller;
-using Devon4Net.WebAPI.Implementation.Domain.Entities;
+using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto;
 
 namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services
 {
@@ -28,5 +27,9 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
         /// Checks user belongs to a town
         /// </summary>
         Task CheckUserBelongsTown(string name, string surname, string townName);
+
+
+        Task AssignTaxToUser(string userName, string userSurname, string taxName, int taxYear, int baseAmount, string reference);
+        Task PayTax(string userName, string userSurname, string taxName, string taxYear);
     }
 }

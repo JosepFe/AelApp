@@ -9,6 +9,6 @@ namespace Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces
     /// </summary>
     public interface ITaxRepository : IRepository<Tax>
     {
-        Task<Tax> GetTownByNameAndYear(string taxName, string taxYear);
+        Task<Tax> GetTownByNameAndYear(string taxName, int taxYear);
     }
 }

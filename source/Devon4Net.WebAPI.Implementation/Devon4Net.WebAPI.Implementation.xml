@@ -96,25 +96,31 @@
             </summary>
             <param name="todoService"></param>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.CreateUser(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.CreateUserDto)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.CreateUser(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto.CreateUserDto)">
             <summary>
             Creates a User
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.DeleteUser(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.DeleteUserDto)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.DeleteUser(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto.DeleteUserDto)">
             <summary>
             Delete a User
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.RegisterUserTown(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.RegisterUserTownDto)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.RegisterUserTown(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto.RegisterUserTownDto)">
             <summary>
             Register a User in town
             </summary>
             <returns></returns>
         </member>
         <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.UserBelongsTown(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto.UserBelongTownDto)">
+            <summary>
+            Check if user belongs to a town
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.AsignTaxToUser(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto.AsignTaxToUserDto)">
             <summary>
             Check if user belongs to a town
             </summary>
@@ -267,7 +273,7 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.TaxRepository.GetTownByNameAndYear(System.String,System.String)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.TaxRepository.GetTownByNameAndYear(System.String,System.Int32)">
             <summary>
             Get the Tax by name and year
             </summary>
@@ -341,6 +347,17 @@
             <summary>
             Deletes the User by id
             </summary>
+        </member>
+        <member name="T:Devon4Net.WebAPI.Implementation.Data.Repositories.UserTaxRepository">
+            <summary>
+            Repository implementation for the TODOS
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserTaxRepository.#ctor(Devon4Net.WebAPI.Implementation.Domain.Database.AelContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="context"></param>
         </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Data.Repositories.UserTownRepository">
             <summary>

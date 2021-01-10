@@ -14,7 +14,7 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Entities
 
         public Guid Id { get; set; }
         public string TaxName { get; set; }
-        public string Year { get; set; }
+        public int Year { get; set; }
         public DateTime TaxDeadlineDate { get; set; }
 
         public virtual ICollection<UserTax> UserTaxes { get; set; }

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Devon4Net.Domain.UnitOfWork.Service;
 using Devon4Net.Domain.UnitOfWork.UnitOfWork;
 using Devon4Net.Infrastructure.Log;
-using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller;
+using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto;
 using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions;
 using Devon4Net.WebAPI.Implementation.Domain.Database;
 using Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces;
@@ -17,7 +17,9 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
     {
         private readonly IUserRepository _userRepository;
         private readonly ITownRepository _townRepository;
+        private readonly ITaxRepository _taxRepository;
         private readonly IUserTownRepository _userTownRepository;
+        private readonly IUserTaxRepository _userTaxRepository;
 
         /// <summary>
         /// Constructor
@@ -27,7 +29,9 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
         {
             _userRepository = uoW.Repository<IUserRepository>();
             _townRepository = uoW.Repository<ITownRepository>();
+            _taxRepository = uoW.Repository<ITaxRepository>();
             _userTownRepository = uoW.Repository<IUserTownRepository>();
+            _userTaxRepository = uoW.Repository<IUserTaxRepository>();
         }
 
         /// <summary>
@@ -140,5 +144,39 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
                 throw new AelNotFoundException($"The Register for user with name: {name} and surname: {surname} does not exist");
             }
         }
+
+        public async Task AssignTaxToUser(string userName, string userSurname, string taxName, int taxYear, int baseAmount, string reference)
+        {
+            var user = await _userRepository.GetUserByNameAndSurname(userName, userSurname).ConfigureAwait(false);
+
+            if (user == null)
+            {
+                throw new AelNotFoundException($"The User with name: {userName} and surname: {userSurname} is not registered in the system");
+            }
+
+            var tax = await _taxRepository.GetTownByNameAndYear(taxName, taxYear).ConfigureAwait(false);
+
+            if (tax == null)
+            {
+                throw new AelNotFoundException($"The Tax with name: {taxName} from year: {taxYear} is not registered in the system");
+            }
+
+            var userTax = await _userTaxRepository.GetUserTaxesByUserIdAndReference(user.Id, reference).ConfigureAwait(false); 
+
+            if(userTax != null)
+            {
+                throw new AelNotFoundException($"The Tax with name: {taxName} from year: {taxYear} is not registered in the system");
+            }
+
+            await _userTaxRepository.CreateUserTax(tax.Id, user.Id, tax.TaxDeadlineDate, baseAmount, reference);
+        }
+
+        public Task PayTax(string userName, string userSurname, string taxName, string taxYear)
+        {
+            throw new NotImplementedException();
+        }
+
+        
+
     }
 }

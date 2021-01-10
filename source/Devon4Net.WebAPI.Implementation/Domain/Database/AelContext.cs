@@ -97,8 +97,7 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
                 entity.Property(e => e.TaxName).HasColumnType("character varying");
 
                 entity.Property(e => e.Year)
-                    .IsRequired()
-                    .HasColumnType("character varying");
+                    .IsRequired();
             });
 
             modelBuilder.Entity<UserTax>(entity =>
@@ -112,6 +111,8 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
                 entity.Property(e => e.PaymentDate).HasColumnType("date");
 
                 entity.Property(e => e.PaymentDeadlineDate).HasColumnType("date");
+
+                entity.Property(e => e.Reference).IsRequired().HasColumnType("character varying");
 
                 entity.HasOne(d => d.Tax)
                     .WithMany(p => p.UserTaxes)

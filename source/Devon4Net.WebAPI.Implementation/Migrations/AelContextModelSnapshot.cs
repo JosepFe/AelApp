@@ -32,9 +32,8 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                     b.Property<string>("TaxName")
                         .HasColumnType("character varying");
 
-                    b.Property<string>("Year")
-                        .IsRequired()
-                        .HasColumnType("character varying");
+                    b.Property<int>("Year")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -107,6 +106,10 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
 
                     b.Property<DateTime?>("PaymentDeadlineDate")
                         .HasColumnType("date");
+
+                    b.Property<string>("Reference")
+                        .IsRequired()
+                        .HasColumnType("character varying");
 
                     b.Property<Guid>("TaxId")
                         .HasColumnType("uuid");

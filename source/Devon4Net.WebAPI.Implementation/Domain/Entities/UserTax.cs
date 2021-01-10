@@ -16,6 +16,7 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Entities
         public int BaseAmount { get; set; }
         public DateTime? PaymentDeadlineDate { get; set; }
         public int? AmountToPay { get; set; }
+        public string Reference { get; set; }
 
         public virtual Tax Tax { get; set; }
         public virtual User User { get; set; }
