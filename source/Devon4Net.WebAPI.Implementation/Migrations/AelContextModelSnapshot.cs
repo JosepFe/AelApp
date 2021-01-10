@@ -20,6 +20,27 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
+            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.Taxes", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("TaxDeadlineDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("TaxName")
+                        .HasColumnType("character varying");
+
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("character varying");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Taxes");
+                });
+
             modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.Town", b =>
                 {
                     b.Property<Guid>("Id")
@@ -63,6 +84,45 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.UserTaxe", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int?>("AmountToPay")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("AssignmentDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("BaseAmount")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Paid")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("PaymentDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime?>("PaymentDeadlineDate")
+                        .HasColumnType("date");
+
+                    b.Property<Guid>("TaxId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaxId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("User_Taxe");
+                });
+
             modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.UserTown", b =>
                 {
                     b.Property<Guid>("Id")
@@ -92,6 +152,25 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                     b.ToTable("User_Town");
                 });
 
+            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.UserTaxe", b =>
+                {
+                    b.HasOne("Devon4Net.WebAPI.Implementation.Domain.Entities.Taxes", "Tax")
+                        .WithMany("UserTaxes")
+                        .HasForeignKey("TaxId")
+                        .HasConstraintName("user_taxe_fk_1")
+                        .IsRequired();
+
+                    b.HasOne("Devon4Net.WebAPI.Implementation.Domain.Entities.User", "User")
+                        .WithMany("UserTaxes")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("user_taxe_fk")
+                        .IsRequired();
+
+                    b.Navigation("Tax");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.UserTown", b =>
                 {
                     b.HasOne("Devon4Net.WebAPI.Implementation.Domain.Entities.Town", "Town")
@@ -111,6 +190,11 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.Taxes", b =>
+                {
+                    b.Navigation("UserTaxes");
+                });
+
             modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.Town", b =>
                 {
                     b.Navigation("UserTowns");
@@ -118,6 +202,8 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
 
             modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.User", b =>
                 {
+                    b.Navigation("UserTaxes");
+
                     b.Navigation("UserTown");
                 });
 #pragma warning restore 612, 618
