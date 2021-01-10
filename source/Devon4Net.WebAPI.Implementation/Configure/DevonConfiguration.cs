@@ -3,11 +3,8 @@ using System.Security.Claims;
 using Devon4Net.Domain.UnitOfWork.Common;
 using Devon4Net.Domain.UnitOfWork.Enums;
 using Devon4Net.Infrastructure.Common.Helpers;
-using Devon4Net.Infrastructure.FluentValidation;
 using Devon4Net.Infrastructure.JWT.Common;
 using Devon4Net.Infrastructure.JWT.Common.Const;
-using Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Validators;
-using Devon4Net.WebAPI.Implementation.Business.TodoManagement.Validators;
 using Devon4Net.WebAPI.Implementation.Domain.Database;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,8 +44,6 @@ namespace Devon4Net.WebAPI.Implementation.Configure
 
         private static void SetupFluentValidators(ref IServiceCollection services)
         {
-            services.AddFluentValidation<TodosFluentValidator>(true);
-            services.AddFluentValidation<EmployeeFluentValidator>(true);
         }
 
         /// <summary>
@@ -61,8 +56,6 @@ namespace Devon4Net.WebAPI.Implementation.Configure
         /// <param name="configuration"></param>
         private static void SetupDatabase(ref IServiceCollection services, ref IConfiguration configuration)
         {
-            services.SetupDatabase<TodoContext>(configuration, "Default", DatabaseType.InMemory);
-            services.SetupDatabase<EmployeeContext>(configuration, "Employee", DatabaseType.InMemory);
             services.SetupDatabase<AelContext>(configuration, "AelContext", DatabaseType.PostgreSQL, migrate:true);
         }
 
