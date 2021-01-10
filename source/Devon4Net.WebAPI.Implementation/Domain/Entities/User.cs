@@ -9,7 +9,7 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Entities
     {
         public User()
         {
-            UserTaxes = new HashSet<UserTaxe>();
+            UserTaxes = new HashSet<UserTax>();
         }
 
         public Guid Id { get; set; }
@@ -18,6 +18,6 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Entities
         public string Dni { get; set; }
         
         public virtual UserTown UserTown { get; set; }
-        public virtual ICollection<UserTaxe> UserTaxes { get; set; }
+        public virtual ICollection<UserTax> UserTaxes { get; set; }
     }
 }

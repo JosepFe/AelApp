@@ -256,6 +256,22 @@
             <param name="services"></param>
             <param name="configuration"></param>
         </member>
+        <member name="T:Devon4Net.WebAPI.Implementation.Data.Repositories.TaxRepository">
+            <summary>
+            Repository implementation for the Taxes
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.TaxRepository.#ctor(Devon4Net.WebAPI.Implementation.Domain.Database.AelContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.TaxRepository.GetTownByNameAndYear(System.String,System.String)">
+            <summary>
+            Get the Tax by name and year
+            </summary>
+        </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Data.Repositories.TownRepository">
             <summary>
             Repository implementation for the TODOS
@@ -358,6 +374,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.ITaxRepository">
+            <summary>
+            UserTownRepository interface
+            </summary>
+        </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.ITownRepository">
             <summary>
             TodoRepository interface
@@ -414,6 +435,11 @@
         <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserRepository.DeleteUserByNameAndSuername(System.String,System.String)">
             <summary>
             DeleteTodoById
+            </summary>
+        </member>
+        <member name="T:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserTaxRepository">
+            <summary>
+            UserTownRepository interface
             </summary>
         </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserTownRepository">

@@ -20,7 +20,7 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
-            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.Taxes", b =>
+            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.Tax", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.UserTaxe", b =>
+            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.UserTax", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,7 +120,7 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("User_Taxe");
+                    b.ToTable("User_Tax");
                 });
 
             modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.UserTown", b =>
@@ -152,18 +152,18 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                     b.ToTable("User_Town");
                 });
 
-            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.UserTaxe", b =>
+            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.UserTax", b =>
                 {
-                    b.HasOne("Devon4Net.WebAPI.Implementation.Domain.Entities.Taxes", "Tax")
+                    b.HasOne("Devon4Net.WebAPI.Implementation.Domain.Entities.Tax", "Tax")
                         .WithMany("UserTaxes")
                         .HasForeignKey("TaxId")
-                        .HasConstraintName("user_taxe_fk_1")
+                        .HasConstraintName("user_tax_fk_1")
                         .IsRequired();
 
                     b.HasOne("Devon4Net.WebAPI.Implementation.Domain.Entities.User", "User")
                         .WithMany("UserTaxes")
                         .HasForeignKey("UserId")
-                        .HasConstraintName("user_taxe_fk")
+                        .HasConstraintName("user_tax_fk")
                         .IsRequired();
 
                     b.Navigation("Tax");
@@ -190,7 +190,7 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.Taxes", b =>
+            modelBuilder.Entity("Devon4Net.WebAPI.Implementation.Domain.Entities.Tax", b =>
                 {
                     b.Navigation("UserTaxes");
                 });

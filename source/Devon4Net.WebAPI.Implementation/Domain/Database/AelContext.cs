@@ -16,9 +16,9 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
 
         public virtual DbSet<Town> Towns { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Taxes> Taxes { get; set; }
+        public virtual DbSet<Tax> Taxes { get; set; }
         public virtual DbSet<UserTown> UserTowns { get; set; }
-        public virtual DbSet<UserTaxe> UserTaxes { get; set; }
+        public virtual DbSet<UserTax> UserTaxes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -88,7 +88,7 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
                     .HasConstraintName("user_town_fk");
             });
 
-            modelBuilder.Entity<Taxes>(entity =>
+            modelBuilder.Entity<Tax>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
@@ -101,9 +101,9 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
                     .HasColumnType("character varying");
             });
 
-            modelBuilder.Entity<UserTaxe>(entity =>
+            modelBuilder.Entity<UserTax>(entity =>
             {
-                entity.ToTable("User_Taxe");
+                entity.ToTable("User_Tax");
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
@@ -117,13 +117,13 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
                     .WithMany(p => p.UserTaxes)
                     .HasForeignKey(d => d.TaxId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("user_taxe_fk_1");
+                    .HasConstraintName("user_tax_fk_1");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserTaxes)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("user_taxe_fk");
+                    .HasConstraintName("user_tax_fk");
             });
 
             OnModelCreatingPartial(modelBuilder);
