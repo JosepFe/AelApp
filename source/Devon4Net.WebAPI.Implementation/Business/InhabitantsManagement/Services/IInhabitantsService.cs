@@ -27,6 +27,6 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
         /// <summary>
         /// Checks user belongs to a town
         /// </summary>
-        Task<User> CheckUserBelongsTown(string name, string surname, string townName);
+        Task CheckUserBelongsTown(string name, string surname, string townName);
     }
 }

@@ -309,35 +309,35 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.UserBelongsTown(System.String,System.String,System.String)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.UserBelongsTown(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto.UserBelongTownDto)">
             <summary>
             Check if user belongs to a town
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.NotFoundException">
+        <member name="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelNotFoundException">
             <summary>
             Custom exception EmployeeNotFoundException
             </summary>
         </member>
-        <member name="P:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.NotFoundException.StatusCode">
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelNotFoundException.StatusCode">
             <summary>
             The forced http status code to be fired on the exception manager
             </summary>
         </member>
-        <member name="P:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.NotFoundException.ShowMessage">
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelNotFoundException.ShowMessage">
             <summary>
             Show the message on the response?
             </summary>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.NotFoundException.#ctor">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelNotFoundException.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.NotFoundException"/> class.
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelNotFoundException"/> class.
             </summary>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.NotFoundException.#ctor(System.String)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelNotFoundException.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.NotFoundException"/> class.
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelNotFoundException"/> class.
             </summary>
             <param name="message">The message that describes the error.</param>
         </member>
@@ -413,6 +413,16 @@
         <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.InhabitantsService.DeleteUser(System.String,System.String)">
             <summary>
             Deletes the User by name and surname
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.InhabitantsService.RegisterUserTown(System.String,System.String,System.String,System.String)">
+            <summary>
+            Register the User to a town
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.InhabitantsService.CheckUserBelongsTown(System.String,System.String,System.String)">
+            <summary>
+            Check if user belongs to a town
             </summary>
         </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Business.TodoManagement.Controllers.TodoController">
@@ -746,7 +756,7 @@
         </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Data.Repositories.UserTownRepository">
             <summary>
-            Repository implementation for the TODOS
+            Repository implementation for the UserTownS
             </summary>
         </member>
         <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserTownRepository.#ctor(Devon4Net.WebAPI.Implementation.Domain.Database.AelContext)">
@@ -755,7 +765,7 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserTownRepository.GetTodoByUserId(System.Guid)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserTownRepository.GetUserTownByUserId(System.Guid)">
             <summary>
             Get the UserTown by userId
             </summary>
@@ -764,14 +774,14 @@
         </member>
         <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserTownRepository.Create(System.Guid,System.Guid,System.DateTime,System.String)">
             <summary>
-            Creates the TODO
+            Creates the UserTown
             </summary>
             <param name="description"></param>
             <returns></returns>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserTownRepository.DeleteTodoById(System.Guid)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.UserTownRepository.DeleteUserTownById(System.Guid)">
             <summary>
-            Deletes the TODO by id
+            Deletes the UserTown by id
             </summary>
             <param name="id"></param>
             <returns></returns>
@@ -1005,10 +1015,10 @@
         </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserTownRepository">
             <summary>
-            TodoRepository interface
+            UserTownRepository interface
             </summary>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserTownRepository.GetTodoByUserId(System.Guid)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserTownRepository.GetUserTownByUserId(System.Guid)">
             <summary>
             GetUserTown
             </summary>
@@ -1018,10 +1028,11 @@
             Create
             </summary>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserTownRepository.DeleteTodoById(System.Guid)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserTownRepository.DeleteUserTownById(System.Guid)">
             <summary>
-            DeleteTodoById
+            DeleteUserTownById
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserTownRepository.GetUserTownByUserIdAndTownId(System.Guid,System.Guid)" -->
     </members>
 </doc>

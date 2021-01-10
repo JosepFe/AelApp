@@ -58,7 +58,7 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
             
             if(user == null)
             {
-                throw new NotFoundException($"The User with name: {name} and surname: {surname} is not registered in the system");
+                throw new AelNotFoundException($"The User with name: {name} and surname: {surname} is not registered in the system");
             }
 
             var deleted = await Delete(t => t.Id == user.Id).ConfigureAwait(false);

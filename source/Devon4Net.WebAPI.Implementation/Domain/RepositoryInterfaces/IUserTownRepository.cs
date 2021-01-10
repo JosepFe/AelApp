@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Devon4Net.Domain.UnitOfWork.Repository;
 using Devon4Net.WebAPI.Implementation.Domain.Entities;
@@ -8,14 +6,14 @@ using Devon4Net.WebAPI.Implementation.Domain.Entities;
 namespace Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces
 {
     /// <summary>
-    /// TodoRepository interface
+    /// UserTownRepository interface
     /// </summary>
     public interface IUserTownRepository : IRepository<UserTown>
     {
         /// <summary>
         /// GetUserTown
         /// </summary>
-        Task<UserTown> GetTodoByUserId(Guid userId);
+        Task<UserTown> GetUserTownByUserId(Guid userId);
 
         /// <summary>
         /// Create
@@ -23,8 +21,13 @@ namespace Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces
         Task<UserTown> Create(Guid userId, Guid townId, DateTime registerDate, string adress);
 
         /// <summary>
-        /// DeleteTodoById
+        /// DeleteUserTownById
         /// </summary>
-        Task<Guid> DeleteTodoById(Guid id);
+        Task<Guid> DeleteUserTownById(Guid id);
+
+        /// <summary>
+        /// Get Town By UserId & TownId
+        /// </summary>
+        Task<UserTown> GetUserTownByUserIdAndTownId(Guid userId, Guid townId);
     }
 }

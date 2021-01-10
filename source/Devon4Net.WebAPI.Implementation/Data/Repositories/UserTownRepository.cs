@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Devon4Net.Domain.UnitOfWork.Repository;
 using Devon4Net.Infrastructure.Log;
-using Devon4Net.WebAPI.Implementation.Business.TodoManagement.Validators;
 using Devon4Net.WebAPI.Implementation.Domain.Database;
 using Devon4Net.WebAPI.Implementation.Domain.Entities;
 using Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces;
@@ -12,7 +9,7 @@ using Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces;
 namespace Devon4Net.WebAPI.Implementation.Data.Repositories
 {
     /// <summary>
-    /// Repository implementation for the TODOS
+    /// Repository implementation for the UserTownS
     /// </summary>
     public class UserTownRepository : Repository<UserTown>, IUserTownRepository
     {
@@ -29,14 +26,14 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<UserTown> GetTodoByUserId(Guid userId)
+        public Task<UserTown> GetUserTownByUserId(Guid userId)
         {
             Devon4NetLogger.Debug($"GetUserTownById method from repository UserTownService with value : {userId}");
-            return GetFirstOrDefault(t => t.Id == userId);
+            return GetFirstOrDefault(t => t.UserId == userId);
         }
 
         /// <summary>
-        /// Creates the TODO
+        /// Creates the UserTown
         /// </summary>
         /// <param name="description"></param>
         /// <returns></returns>
@@ -50,11 +47,11 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
         }
 
         /// <summary>
-        /// Deletes the TODO by id
+        /// Deletes the UserTown by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Guid> DeleteTodoById(Guid id)
+        public async Task<Guid> DeleteUserTownById(Guid id)
         {
             Devon4NetLogger.Debug($"DeleteUserTownById method from repository UserTownService with value : {id}");
             var deleted = await Delete(t => t.Id == id).ConfigureAwait(false);
@@ -65,6 +62,11 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
             }
 
             throw  new ApplicationException($"The UserTown entity {id} has not been deleted.");
+        }
+
+        public async Task<UserTown> GetUserTownByUserIdAndTownId(Guid userId, Guid townId)
+        {
+            return await GetFirstOrDefault(x => x.UserId == userId && x.TownId == townId).ConfigureAwait(false);
         }
     }
 }

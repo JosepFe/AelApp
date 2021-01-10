@@ -16,7 +16,9 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
 
         public virtual DbSet<Town> Towns { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Taxes> Taxes { get; set; }
         public virtual DbSet<UserTown> UserTowns { get; set; }
+        public virtual DbSet<UserTaxe> UserTaxes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -84,6 +86,44 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
                     .WithOne(p => p.UserTown)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_town_fk");
+            });
+
+            modelBuilder.Entity<Taxes>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.TaxDeadlineDate).HasColumnType("date");
+
+                entity.Property(e => e.TaxName).HasColumnType("character varying");
+
+                entity.Property(e => e.Year)
+                    .IsRequired()
+                    .HasColumnType("character varying");
+            });
+
+            modelBuilder.Entity<UserTaxe>(entity =>
+            {
+                entity.ToTable("User_Taxe");
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.AssignmentDate).HasColumnType("date");
+
+                entity.Property(e => e.PaymentDate).HasColumnType("date");
+
+                entity.Property(e => e.PaymentDeadlineDate).HasColumnType("date");
+
+                entity.HasOne(d => d.Tax)
+                    .WithMany(p => p.UserTaxes)
+                    .HasForeignKey(d => d.TaxId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("user_taxe_fk_1");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserTaxes)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("user_taxe_fk");
             });
 
             OnModelCreatingPartial(modelBuilder);

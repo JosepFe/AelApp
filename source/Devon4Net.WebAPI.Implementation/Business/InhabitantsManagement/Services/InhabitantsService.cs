@@ -3,11 +3,9 @@ using System.Threading.Tasks;
 using Devon4Net.Domain.UnitOfWork.Service;
 using Devon4Net.Domain.UnitOfWork.UnitOfWork;
 using Devon4Net.Infrastructure.Log;
-using Devon4Net.WebAPI.Implementation.Business.EmployeeManagement.Exceptions;
 using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller;
 using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions;
 using Devon4Net.WebAPI.Implementation.Domain.Database;
-using Devon4Net.WebAPI.Implementation.Domain.Entities;
 using Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces;
 
 namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services
@@ -30,11 +28,6 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
             _userRepository = uoW.Repository<IUserRepository>();
             _townRepository = uoW.Repository<ITownRepository>();
             _userTownRepository = uoW.Repository<IUserTownRepository>();
-        }
-
-        public Task<User> CheckUserBelongsTown(string name, string surname, string townName)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -62,10 +55,27 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
         public async Task DeleteUser(string name, string surname)
         {
             Devon4NetLogger.Debug($"DeleteUser method from service TodoService with value : {name}, {surname}");
+
+            var user = await _userRepository.GetUserByNameAndSurname(name, surname).ConfigureAwait(false);
             
+            if (user == null)
+            {
+                throw new AelNotFoundException($"The User with name: {name} and surname: {surname} is not registered in the system");
+            }
+
+            var userTown = await _userTownRepository.GetUserTownByUserId(user.Id).ConfigureAwait(false);
+
+            if (userTown != null)
+            {
+                await _userTownRepository.Delete(userTown).ConfigureAwait(false);
+            }
+
             await _userRepository.DeleteUserByNameAndSuername(name, surname).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Register the User to a town
+        /// </summary>
         public async Task RegisterUserTown(string name, string surname, string townName, string adress)
         {
             Devon4NetLogger.Debug($"ModifyTodoById method from service TodoService with value : {name}, {surname}, {townName}");
@@ -74,17 +84,17 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
 
             if (user == null)
             {
-                throw new NotFoundException($"The User with name: {name} and surname: {surname} is not registered in the system");
+                throw new AelNotFoundException($"The User with name: {name} and surname: {surname} is not registered in the system");
             }
 
             var town = await _townRepository.GetTownByName(townName).ConfigureAwait(false);
 
             if (town == null)
             {
-                throw new NotFoundException($"The Town with name: {townName} is not registered in the system");
+                throw new AelNotFoundException($"The Town with name: {townName} is not registered in the system");
             }
 
-            var userTown = await _userTownRepository.GetTodoByUserId(user.Id).ConfigureAwait(false);
+            var userTown = await _userTownRepository.GetUserTownByUserId(user.Id).ConfigureAwait(false);
 
             if(userTown == null)
             {
@@ -96,6 +106,38 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
                 userTown.RegisterDate = DateTime.UtcNow;
                 userTown.Adress = adress;
                 await _userTownRepository.Update(userTown).ConfigureAwait(false);
+            }
+        }
+
+        /// <summary>
+        /// Check if user belongs to a town
+        /// </summary>
+        public async Task CheckUserBelongsTown(string name, string surname, string townName)
+        {
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(surname) || string.IsNullOrEmpty(townName))
+            {
+                throw new ArgumentException($"Invalid data provided");
+            }
+
+            var user = await _userRepository.GetUserByNameAndSurname(name, surname).ConfigureAwait(false);
+
+            if (user == null)
+            {
+                throw new AelNotFoundException($"The User with name: {name} and surname: {surname} is not registered in the system");
+            }
+
+            var town = await _townRepository.GetTownByName(townName).ConfigureAwait(false);
+
+            if (town == null)
+            {
+                throw new AelNotFoundException($"The Town with name: {townName} is not registered in the system");
+            }
+
+            var userTown = await _userTownRepository.GetUserTownByUserIdAndTownId(user.Id, town.Id).ConfigureAwait(false);
+
+            if (userTown == null)
+            {
+                throw new AelNotFoundException($"The Register for user with name: {name} and surname: {surname} does not exist");
             }
         }
     }

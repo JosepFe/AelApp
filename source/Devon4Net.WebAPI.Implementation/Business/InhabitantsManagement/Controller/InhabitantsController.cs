@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Devon4Net.Infrastructure.Log;
+using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto;
 using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -32,12 +33,13 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         /// <returns></returns>
         [HttpPost]
         [Route("createuser")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
         {
-            var user = await _inhabitantsService.CreateUser(createUserDto.Name, createUserDto.Surname, createUserDto.Dni);
+            var user = await _inhabitantsService.CreateUser(createUserDto.Name.ToLower(), createUserDto.Surname.ToLower(), createUserDto.Dni);
 
             Devon4NetLogger.Debug("Executing GetTodo from controller InhabitantsController");
             return StatusCode(StatusCodes.Status201Created, user);
@@ -49,12 +51,13 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         /// <returns></returns>
         [HttpDelete]
         [Route("deleteuser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteUser([FromBody] DeleteUserDto deleteUserDto)
         {
-            await _inhabitantsService.DeleteUser(deleteUserDto.Name, deleteUserDto.Surname);
+            await _inhabitantsService.DeleteUser(deleteUserDto.Name.ToLower(), deleteUserDto.Surname.ToLower());
 
             Devon4NetLogger.Debug("Executing GetTodo from controller InhabitantsController");
             return StatusCode(StatusCodes.Status200OK);
@@ -66,12 +69,13 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         /// <returns></returns>
         [HttpPost]
         [Route("registerusertown")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> RegisterUserTown([FromBody] RegisterUserTownDto registerUserTownDto)
         {
-            await _inhabitantsService.RegisterUserTown(registerUserTownDto.Name, registerUserTownDto.Surname, registerUserTownDto.TownName, registerUserTownDto.Adress).ConfigureAwait(false);
+            await _inhabitantsService.RegisterUserTown(registerUserTownDto.Name.ToLower(), registerUserTownDto.Surname.ToLower(), registerUserTownDto.TownName.ToLower(), registerUserTownDto.Adress).ConfigureAwait(false);
 
             Devon4NetLogger.Debug("Executing RegisterUserTown from controller InhabitantsController");
             return StatusCode(StatusCodes.Status201Created);
@@ -81,17 +85,18 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         /// Check if user belongs to a town
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("userbelongstown")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UserBelongsTown(string name, string surname, string townName)
+        public async Task<ActionResult> UserBelongsTown([FromBody] UserBelongTownDto userBelongTownDto)
         {
-            var a = await _inhabitantsService.CheckUserBelongsTown(name, surname, townName);
+            await _inhabitantsService.CheckUserBelongsTown(userBelongTownDto.Name.ToLower(), userBelongTownDto.Surname.ToLower(), userBelongTownDto.TownName.ToLower());
 
-            Devon4NetLogger.Debug("Executing GetTodo from controller InhabitantsController");
-            return StatusCode(StatusCodes.Status201Created, a);
+            Devon4NetLogger.Debug("Executing CheckUserBelongsTown from controller InhabitantsController");
+            return StatusCode(StatusCodes.Status200OK);
         }
     }
 }
