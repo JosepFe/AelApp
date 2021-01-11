@@ -23,7 +23,7 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
         {
         }
 
-        public async Task CreateUserTax(Guid taxId, Guid userId, DateTime paymentDeadLine, int baseAmount, string reference)
+        public async Task CreateUserTax(Guid taxId, Guid userId, DateTime paymentDeadLine, double baseAmount, string reference)
         {
             Devon4NetLogger.Debug($"CreateUserTax method from repository UserTaxRepository with value : {taxId}, {userId}, {paymentDeadLine}, {baseAmount} & {reference}");
 
@@ -42,6 +42,11 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
         public Task<UserTax> GetUserTaxesByUserIdAndReference(Guid userId, string reference)
         {
             return GetFirstOrDefault(x => x.UserId == userId && x.Reference == reference);
+        }
+
+        public Task<UserTax> GetUserTaxesByUserIdAndReferenceAndTaxId(Guid userId, string reference, Guid taxId)
+        {
+            return GetFirstOrDefault(x => x.UserId == userId && x.Reference == reference && x.TaxId == taxId);
         }
 
         public async Task UpdateUserTax(UserTax userTax)

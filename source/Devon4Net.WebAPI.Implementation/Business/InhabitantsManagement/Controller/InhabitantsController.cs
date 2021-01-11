@@ -100,7 +100,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         }
 
         /// <summary>
-        /// Check if user belongs to a town
+        /// Assig a tax to a user
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -118,7 +118,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         }
 
         /// <summary>
-        /// Check if user belongs to a town
+        /// Payment of a tax for a user
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -133,6 +133,24 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
 
             Devon4NetLogger.Debug("Executing CheckUserBelongsTown from controller InhabitantsController");
             return StatusCode(StatusCodes.Status200OK);
+        }
+
+        /// <summary>
+        /// Get the most updated info about which taxes has the user
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("getupdatedtaxuserinfo")]
+        [ProducesResponseType(typeof(UserTaxInformationDto),StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> GetUpdatedTaxUserInfo(string name, string surname)
+        {
+            Devon4NetLogger.Debug("Executing GetTaxUserInfo from controller InhabitantsController");
+            var userTaxInformation = await _inhabitantsService.GetUpdatedTaxesForUser(name.ToLower(), surname.ToLower());
+
+            return StatusCode(StatusCodes.Status200OK, userTaxInformation);
         }
     }
 }

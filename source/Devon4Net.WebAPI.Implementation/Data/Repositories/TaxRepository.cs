@@ -23,10 +23,16 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
         {
         }
 
+        public Task<Tax> GetTaxById(Guid taxId)
+        {
+            Devon4NetLogger.Debug($"GetTaxById method from repository TaxesRepository with value : {taxId}");
+            return GetFirstOrDefault(t => t.Id == taxId);
+        }
+
         /// <summary>
         /// Get the Tax by name and year
         /// </summary>
-        public Task<Tax> GetTownByNameAndYear(string taxName, int taxYear)
+        public Task<Tax> GetTaxByNameAndYear(string taxName, int taxYear)
         {
             Devon4NetLogger.Debug($"GetTownByNameAndYear method from repository TaxesRepository with value : {taxName} & {taxYear}");
             return GetFirstOrDefault(t => t.TaxName == taxName && t.Year == taxYear);

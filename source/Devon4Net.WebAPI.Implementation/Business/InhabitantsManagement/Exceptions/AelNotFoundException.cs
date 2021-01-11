@@ -5,7 +5,7 @@ using System;
 namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions
 {
     /// <summary>
-    /// Custom exception EmployeeNotFoundException
+    /// Custom exception AelNotFoundException
     /// </summary>
     [Serializable]
     public class AelNotFoundException : Exception, IWebApiException

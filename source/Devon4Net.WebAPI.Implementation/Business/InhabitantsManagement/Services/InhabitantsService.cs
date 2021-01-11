@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Devon4Net.Domain.UnitOfWork.Service;
 using Devon4Net.Domain.UnitOfWork.UnitOfWork;
@@ -6,6 +7,7 @@ using Devon4Net.Infrastructure.Log;
 using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto;
 using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions;
 using Devon4Net.WebAPI.Implementation.Domain.Database;
+using Devon4Net.WebAPI.Implementation.Domain.Entities;
 using Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces;
 
 namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services
@@ -148,7 +150,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
         /// <summary>
         /// Assign Tax to User
         /// </summary>
-        public async Task AssignTaxToUser(string userName, string userSurname, string taxName, int taxYear, int baseAmount, string reference)
+        public async Task AssignTaxToUser(string userName, string userSurname, string taxName, int taxYear, double baseAmount, string reference)
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userSurname) || string.IsNullOrEmpty(taxName) || taxYear == 0 || string.IsNullOrEmpty(reference))
             {
@@ -162,14 +164,14 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
                 throw new AelNotFoundException($"The User with name: {userName} and surname: {userSurname} is not registered in the system");
             }
 
-            var tax = await _taxRepository.GetTownByNameAndYear(taxName, taxYear).ConfigureAwait(false);
+            var tax = await _taxRepository.GetTaxByNameAndYear(taxName, taxYear).ConfigureAwait(false);
 
             if (tax == null)
             {
                 throw new AelNotFoundException($"The Tax with name: {taxName} from year: {taxYear} is not registered in the system");
             }
 
-            var userTax = await _userTaxRepository.GetUserTaxesByUserIdAndReference(user.Id, reference).ConfigureAwait(false); 
+            var userTax = await _userTaxRepository.GetUserTaxesByUserIdAndReferenceAndTaxId(user.Id, reference,tax.Id).ConfigureAwait(false); 
 
             if(userTax != null)
             {
@@ -196,14 +198,14 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
                 throw new AelNotFoundException($"The User with name: {userName} and surname: {userSurname} is not registered in the system");
             }
 
-            var tax = await _taxRepository.GetTownByNameAndYear(taxName, taxYear).ConfigureAwait(false);
+            var tax = await _taxRepository.GetTaxByNameAndYear(taxName, taxYear).ConfigureAwait(false);
 
             if (tax == null)
             {
                 throw new AelNotFoundException($"The Tax with name: {taxName} from year: {taxYear} is not registered in the system");
             }
 
-            var userTax = await _userTaxRepository.GetUserTaxesByUserIdAndReference(user.Id, reference).ConfigureAwait(false);
+            var userTax = await _userTaxRepository.GetUserTaxesByUserIdAndReferenceAndTaxId(user.Id, reference, tax.Id).ConfigureAwait(false);
 
             if (userTax == null)
             {
@@ -215,9 +217,70 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
                 throw new UserTaxPaymentExpiredException($"The Payment Day has expired, please get the new amount");
             }
 
+            if (userTax.Paid)
+            {
+                throw new UserAlreadyPaidException($"The user already paid the tax");
+            }
+
             userTax.PaymentDate = DateTime.UtcNow;
             userTax.Paid = true;
             await _userTaxRepository.UpdateUserTax(userTax).ConfigureAwait(false);
+        }
+
+        public async Task<UserTaxInformationDto> GetUpdatedTaxesForUser(string userName, string userSurname)
+        {
+            var user = await _userRepository.GetUserByNameAndSurname(userName, userSurname).ConfigureAwait(false);
+
+            if (user == null)
+            {
+                throw new AelNotFoundException($"The User with name: {userName} and surname: {userSurname} is not registered in the system");
+            }
+
+            var userTaxes = await _userTaxRepository.GetUserTaxesByUserId(user.Id).ConfigureAwait(false);
+
+            var userTaxesDto = new List<UserTaxesDto>();
+
+            foreach(var userTax in userTaxes)
+            {
+                var tax = await _taxRepository.GetTaxById(userTax.TaxId).ConfigureAwait(false);
+
+                var userTaxUpdated = await UpdateUserTaxIfDateExpierd(userTax, tax.TaxDeadlineDate).ConfigureAwait(false);
+
+                userTaxesDto.Add(new UserTaxesDto { TaxName = tax.TaxName, TaxYear = tax.Year, AmountToPay = userTaxUpdated.AmountToPay, Reference = userTaxUpdated.Reference, PaymentDeadLine = userTaxUpdated.PaymentDeadlineDate, Paid = userTaxUpdated.Paid, Surcharge = userTaxUpdated.BaseAmount != userTaxUpdated.AmountToPay});
+            }
+
+            return new UserTaxInformationDto { Name = user.Name, Surname = user.Surname, Taxes = userTaxesDto };
+        }
+
+        private async Task<UserTax> UpdateUserTaxIfDateExpierd(UserTax userTax, DateTime taxDeadLine)
+        {
+            if (userTax.PaymentDeadlineDate < DateTime.UtcNow && !userTax.Paid)
+            {
+                if (DateTime.UtcNow <= taxDeadLine.AddDays(10))
+                {
+                    userTax.AmountToPay = userTax.BaseAmount + (userTax.BaseAmount * 5 / 100);
+                    userTax.PaymentDeadlineDate = taxDeadLine.AddDays(10);
+                }
+                else if (DateTime.UtcNow <= taxDeadLine.AddDays(20))
+                {
+                    userTax.AmountToPay = userTax.BaseAmount + (userTax.BaseAmount * 10 / 100);
+                    userTax.PaymentDeadlineDate = taxDeadLine.AddDays(20);
+                }
+                else if (DateTime.Now <= taxDeadLine.AddDays(30))
+                {
+                    userTax.AmountToPay = userTax.BaseAmount + (userTax.BaseAmount * 15 / 100);
+                    userTax.PaymentDeadlineDate = taxDeadLine.AddDays(30);
+                }
+                else
+                {
+                    userTax.AmountToPay = userTax.BaseAmount + (userTax.BaseAmount * 20 / 100);
+                    userTax.PaymentDeadlineDate = taxDeadLine.AddYears(1);
+                }
+
+                return await _userTaxRepository.Update(userTax).ConfigureAwait(false);
+            }
+
+            return userTax;
         }
     }
 }

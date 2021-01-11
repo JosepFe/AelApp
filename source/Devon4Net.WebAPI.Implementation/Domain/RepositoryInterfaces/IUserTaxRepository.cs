@@ -11,8 +11,9 @@ namespace Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces
     /// </summary>
     public interface IUserTaxRepository : IRepository<UserTax>
     {
-        Task CreateUserTax(Guid taxId, Guid userId, DateTime paymentDeadLine, int baseAmount, string reference);
+        Task CreateUserTax(Guid taxId, Guid userId, DateTime paymentDeadLine, double baseAmount, string reference);
         Task<IList<UserTax>> GetUserTaxesByUserId(Guid userId);
+        Task<UserTax> GetUserTaxesByUserIdAndReferenceAndTaxId(Guid userId, string reference, Guid taxId);
         Task<UserTax> GetUserTaxesByUserIdAndReference(Guid userId, string reference);
         Task UpdateUserTax(UserTax userTax);
     }

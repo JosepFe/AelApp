@@ -89,14 +89,14 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("AmountToPay")
-                        .HasColumnType("integer");
+                    b.Property<double>("AmountToPay")
+                        .HasColumnType("double precision");
 
                     b.Property<DateTime>("AssignmentDate")
                         .HasColumnType("date");
 
-                    b.Property<int>("BaseAmount")
-                        .HasColumnType("integer");
+                    b.Property<double>("BaseAmount")
+                        .HasColumnType("double precision");
 
                     b.Property<bool>("Paid")
                         .HasColumnType("boolean");
@@ -104,7 +104,7 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                     b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("date");
 
-                    b.Property<DateTime?>("PaymentDeadlineDate")
+                    b.Property<DateTime>("PaymentDeadlineDate")
                         .HasColumnType("date");
 
                     b.Property<string>("Reference")
