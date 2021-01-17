@@ -150,7 +150,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
         /// <summary>
         /// Assign Tax to User
         /// </summary>
-        public async Task AssignTaxToUser(string userName, string userSurname, string taxName, int taxYear, double baseAmount, string reference)
+        public async Task AssignTaxToUser(string userName, string userSurname, string taxName, int taxYear, double baseAmount, string reference, string townName)
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userSurname) || string.IsNullOrEmpty(taxName) || taxYear == 0 || string.IsNullOrEmpty(reference))
             {

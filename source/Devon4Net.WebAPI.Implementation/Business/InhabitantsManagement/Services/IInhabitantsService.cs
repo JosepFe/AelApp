@@ -31,7 +31,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
         /// <summary>
         /// Checks user belongs to a town
         /// </summary>
-        Task AssignTaxToUser(string userName, string userSurname, string taxName, int taxYear, double baseAmount, string reference);
+        Task AssignTaxToUser(string userName, string userSurname, string taxName, int taxYear, double baseAmount, string reference, string townName);
         
         /// <summary>
         /// Checks user belongs to a town

@@ -80,12 +80,12 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
                     .WithMany(p => p.UserTowns)
                     .HasForeignKey(d => d.TownId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("user_town_fk_1");
+                    .HasConstraintName("user_town_fk__town");
 
                 entity.HasOne(d => d.User)
                     .WithOne(p => p.UserTown)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("user_town_fk");
+                    .HasConstraintName("user_town_fk_user");
             });
 
             modelBuilder.Entity<Tax>(entity =>
@@ -114,17 +114,23 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
 
                 entity.Property(e => e.Reference).IsRequired().HasColumnType("character varying");
 
+                entity.HasOne(d => d.Town)
+                    .WithMany(p => p.UserTaxes)
+                    .HasForeignKey(d => d.TownId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("user_tax_fk_town");
+
                 entity.HasOne(d => d.Tax)
                     .WithMany(p => p.UserTaxes)
                     .HasForeignKey(d => d.TaxId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("user_tax_fk_1");
+                    .HasConstraintName("user_tax_fk_tax");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserTaxes)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("user_tax_fk");
+                    .HasConstraintName("user_tax_fk_user");
             });
 
             OnModelCreatingPartial(modelBuilder);

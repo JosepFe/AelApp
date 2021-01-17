@@ -319,7 +319,7 @@
             Checks user belongs to a town
             </summary>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.IInhabitantsService.AssignTaxToUser(System.String,System.String,System.String,System.Int32,System.Double,System.String)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.IInhabitantsService.AssignTaxToUser(System.String,System.String,System.String,System.Int32,System.Double,System.String,System.String)">
             <summary>
             Checks user belongs to a town
             </summary>
@@ -362,7 +362,7 @@
             Check if user belongs to a town
             </summary>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.InhabitantsService.AssignTaxToUser(System.String,System.String,System.String,System.Int32,System.Double,System.String)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services.InhabitantsService.AssignTaxToUser(System.String,System.String,System.String,System.Int32,System.Double,System.String,System.String)">
             <summary>
             Assign Tax to User
             </summary>

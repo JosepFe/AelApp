@@ -10,6 +10,7 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Entities
         public Town()
         {
             UserTowns = new HashSet<UserTown>();
+            UserTaxes = new HashSet<UserTax>();
         }
 
         public Guid Id { get; set; }
@@ -17,5 +18,6 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Entities
         public string Community { get; set; }
 
         public virtual ICollection<UserTown> UserTowns { get; set; }
+        public virtual ICollection<UserTax> UserTaxes { get; set; }
     }
 }

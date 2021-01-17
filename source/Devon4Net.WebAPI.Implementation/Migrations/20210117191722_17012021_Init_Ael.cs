@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Devon4Net.WebAPI.Implementation.Migrations
 {
-    public partial class Ael10012021InitialMigration : Migration
+    public partial class _17012021_Init_Ael : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,6 +55,7 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     TaxId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TownId = table.Column<Guid>(type: "uuid", nullable: false),
                     AssignmentDate = table.Column<DateTime>(type: "date", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "date", nullable: true),
                     Paid = table.Column<bool>(type: "boolean", nullable: false),
@@ -67,15 +68,21 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                 {
                     table.PrimaryKey("PK_User_Tax", x => x.Id);
                     table.ForeignKey(
-                        name: "user_tax_fk",
-                        column: x => x.UserId,
-                        principalTable: "Users",
+                        name: "user_tax_fk_tax",
+                        column: x => x.TaxId,
+                        principalTable: "Taxes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "user_tax_fk_1",
-                        column: x => x.TaxId,
-                        principalTable: "Taxes",
+                        name: "user_tax_fk_town",
+                        column: x => x.TownId,
+                        principalTable: "Towns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "user_tax_fk_user",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -94,15 +101,15 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                 {
                     table.PrimaryKey("PK_User_Town", x => x.Id);
                     table.ForeignKey(
-                        name: "user_town_fk",
-                        column: x => x.UserId,
-                        principalTable: "Users",
+                        name: "user_town_fk__town",
+                        column: x => x.TownId,
+                        principalTable: "Towns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "user_town_fk_1",
-                        column: x => x.TownId,
-                        principalTable: "Towns",
+                        name: "user_town_fk_user",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -111,6 +118,11 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                 name: "IX_User_Tax_TaxId",
                 table: "User_Tax",
                 column: "TaxId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Tax_TownId",
+                table: "User_Tax",
+                column: "TownId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_Tax_UserId",
@@ -141,10 +153,10 @@ namespace Devon4Net.WebAPI.Implementation.Migrations
                 name: "Taxes");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Towns");
 
             migrationBuilder.DropTable(
-                name: "Towns");
+                name: "Users");
         }
     }
 }
