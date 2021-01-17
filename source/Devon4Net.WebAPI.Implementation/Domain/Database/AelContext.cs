@@ -1,4 +1,5 @@
 ﻿using Devon4Net.WebAPI.Implementation.Domain.Entities;
+using Devon4Net.WebAPI.Implementation.Domain.Seed;
 using Microsoft.EntityFrameworkCore;
 
 namespace Devon4Net.WebAPI.Implementation.Domain.Database
@@ -134,6 +135,7 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
             });
 
             OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Seed();
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

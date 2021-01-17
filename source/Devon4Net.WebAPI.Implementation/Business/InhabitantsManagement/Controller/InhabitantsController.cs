@@ -38,9 +38,9 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         [Route("createuser")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ArgumentException), StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(UserAlreadyExistException), StatusCodes.Status409Conflict)]
+        //[ProducesResponseType(typeof(UserAlreadyExistException), StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
         {
@@ -57,9 +57,9 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         [Route("deleteuser")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ArgumentException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(AelNotFoundException), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteUser(string name, string surname)
         {
@@ -76,9 +76,9 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         [Route("registerusertown")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ArgumentException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(AelNotFoundException), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> RegisterUserTown([FromBody] RegisterUserTownDto registerUserTownDto)
         {
@@ -97,7 +97,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(AelNotFoundException), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UserBelongsTown([FromBody] UserBelongTownDto userBelongTownDto)
         {
@@ -116,8 +116,8 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(AelNotFoundException), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(UserTaxAlreadyAssignedException), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> AsignTaxToUser([FromBody] AsignTaxToUserDto asignTaxToUserDto)
         {
@@ -134,10 +134,10 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         [Route("paytaxuser")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ArgumentException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(AelNotFoundException), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(UserTaxPaymentExpiredException), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> PayTaxToUser([FromBody] PayTaxToUserDto payTaxToUserDto)
         {
@@ -153,10 +153,10 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         [HttpGet]
         [Route("getupdatedtaxuserinfo")]
         [Authorize]
-        [ProducesResponseType(typeof(UserTaxInformationDto),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ArgumentException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(UserTaxInformationDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(AelNotFoundException), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> GetUpdatedTaxUserInfo(string name, string surname)
         {
