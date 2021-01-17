@@ -47,7 +47,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
 
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(surname) || string.IsNullOrWhiteSpace(dni))
             {
-                throw new ArgumentException("The 'Description' field can not be null.");
+                throw new ArgumentException("Invalid data provided");
             }
 
             var user = await _userRepository.Create(name, surname, dni);
@@ -61,6 +61,11 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
         public async Task DeleteUser(string name, string surname)
         {
             Devon4NetLogger.Debug($"DeleteUser method from service TodoService with value : {name}, {surname}");
+
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(surname))
+            {
+                throw new ArgumentException($"Invalid data provided");
+            }
 
             var user = await _userRepository.GetUserByNameAndSurname(name, surname).ConfigureAwait(false);
             
@@ -92,6 +97,11 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
         public async Task RegisterUserTown(string name, string surname, string townName, string adress)
         {
             Devon4NetLogger.Debug($"ModifyTodoById method from service TodoService with value : {name}, {surname}, {townName}");
+
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(surname) || string.IsNullOrWhiteSpace(townName) || string.IsNullOrWhiteSpace(adress))
+            {
+                throw new ArgumentException($"Invalid data provided");
+            }
 
             var user = await _userRepository.GetUserByNameAndSurname(name, surname).ConfigureAwait(false);
 
