@@ -143,7 +143,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
 
             if (userTown == null)
             {
-                throw new AelNotFoundException($"The Register for user with name: {name} and surname: {surname} does not exist");
+                throw new AelUserNotBelongsToTownException($"The Register for user with name: {name} and surname: {surname} does not exist");
             }
         }
 

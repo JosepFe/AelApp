@@ -5,10 +5,10 @@ using System;
 namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions
 {
     /// <summary>
-    /// Custom exception UserTaxPaymentExpiredException
+    /// Custom exception AelUserNotBelongsToTownException
     /// </summary>
     [Serializable]
-    public class UserTaxPaymentExpiredException : Exception, IWebApiException
+    public class AelUserNotBelongsToTownException : Exception, IWebApiException
     {
         /// <summary>
         /// The forced http status code to be fired on the exception manager
@@ -21,17 +21,17 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Excepti
         public bool ShowMessage => true;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserTaxPaymentExpiredException"/> class.
+        /// Initializes a new instance of the <see cref="AelUserNotBelongsToTownException"/> class.
         /// </summary>
-        public UserTaxPaymentExpiredException()
+        public AelUserNotBelongsToTownException()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserTaxPaymentExpiredException"/> class.
+        /// Initializes a new instance of the <see cref="AelUserNotBelongsToTownException"/> class.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
-        public UserTaxPaymentExpiredException(string message)
+        public AelUserNotBelongsToTownException(string message)
             : base(message)
         {
         }

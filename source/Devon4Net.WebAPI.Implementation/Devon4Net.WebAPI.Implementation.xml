@@ -102,7 +102,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.DeleteUser(Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto.DeleteUserDto)">
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Controller.InhabitantsController.DeleteUser(System.String,System.String)">
             <summary>
             Delete a User
             </summary>
@@ -161,6 +161,32 @@
         <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelNotFoundException.#ctor(System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelNotFoundException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelUserNotBelongsToTownException">
+            <summary>
+            Custom exception AelUserNotBelongsToTownException
+            </summary>
+        </member>
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelUserNotBelongsToTownException.StatusCode">
+            <summary>
+            The forced http status code to be fired on the exception manager
+            </summary>
+        </member>
+        <member name="P:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelUserNotBelongsToTownException.ShowMessage">
+            <summary>
+            Show the message on the response?
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelUserNotBelongsToTownException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelUserNotBelongsToTownException"/> class.
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelUserNotBelongsToTownException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Exceptions.AelUserNotBelongsToTownException"/> class.
             </summary>
             <param name="message">The message that describes the error.</param>
         </member>

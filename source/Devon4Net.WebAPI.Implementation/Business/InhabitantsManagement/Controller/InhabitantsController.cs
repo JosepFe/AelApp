@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Devon4Net.Infrastructure.Log;
 using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Dto;
 using Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,13 +27,14 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         {
             _inhabitantsService = inhabitantsService;
         }
-        
+
         /// <summary>
         /// Creates a User
         /// </summary>
         /// <returns></returns>
         [HttpPost]
         [Route("createuser")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -51,13 +53,14 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         /// <returns></returns>
         [HttpDelete]
         [Route("deleteuser")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> DeleteUser([FromBody] DeleteUserDto deleteUserDto)
+        public async Task<ActionResult> DeleteUser(string name, string surname)
         {
-            await _inhabitantsService.DeleteUser(deleteUserDto.Name.ToLower(), deleteUserDto.Surname.ToLower());
+            await _inhabitantsService.DeleteUser(name.ToLower(), surname.ToLower());
 
             Devon4NetLogger.Debug("Executing GetTodo from controller InhabitantsController");
             return StatusCode(StatusCodes.Status200OK);
@@ -69,6 +72,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         /// <returns></returns>
         [HttpPost]
         [Route("registerusertown")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -87,6 +91,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         /// <returns></returns>
         [HttpPost]
         [Route("userbelongstown")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -105,6 +110,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         /// <returns></returns>
         [HttpPost]
         [Route("asigntaxuser")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -123,6 +129,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         /// <returns></returns>
         [HttpPost]
         [Route("paytaxuser")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -141,6 +148,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         /// <returns></returns>
         [HttpGet]
         [Route("getupdatedtaxuserinfo")]
+        [Authorize]
         [ProducesResponseType(typeof(UserTaxInformationDto),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
