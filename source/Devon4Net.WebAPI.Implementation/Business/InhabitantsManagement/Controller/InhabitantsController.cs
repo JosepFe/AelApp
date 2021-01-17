@@ -117,7 +117,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Control
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> AsignTaxToUser([FromBody] AsignTaxToUserDto asignTaxToUserDto)
         {
-            await _inhabitantsService.AssignTaxToUser(asignTaxToUserDto.Name.ToLower(), asignTaxToUserDto.Surname.ToLower(), asignTaxToUserDto.TaxName.ToLower(), asignTaxToUserDto.TaxYear, asignTaxToUserDto.BaseAmount, asignTaxToUserDto.Reference.ToLower(), asignTaxToUserDto.Town.ToLower());
+            await _inhabitantsService.AssignTaxToUser(asignTaxToUserDto.Name.ToLower(), asignTaxToUserDto.Surname.ToLower(), asignTaxToUserDto.TaxName.ToLower(), asignTaxToUserDto.TaxYear, asignTaxToUserDto.BaseAmount, asignTaxToUserDto.Reference.ToLower(), asignTaxToUserDto.TownName.ToLower());
 
             Devon4NetLogger.Debug("Executing CheckUserBelongsTown from controller InhabitantsController");
             return StatusCode(StatusCodes.Status200OK);

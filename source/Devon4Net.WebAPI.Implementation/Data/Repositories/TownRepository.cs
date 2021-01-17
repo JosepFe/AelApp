@@ -32,58 +32,10 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
             return GetFirstOrDefault(t => t.TownName == townName);
         }
 
-        /// <summary>
-        /// Get TODO method
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public Task<IList<Town>> GetTodo(Expression<Func<Town, bool>> predicate = null)
+        public Task<Town> GetTownById(Guid townId)
         {
-            Devon4NetLogger.Debug("GetTown method from TodoRepository TownService");
-            return Get(predicate);
-        }
-
-        /// <summary>
-        /// Geto the TODO by id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Task<Town> GetTodoById(Guid id)
-        {
-            Devon4NetLogger.Debug($"GetTownById method from repository TownService with value : {id}");
-            return GetFirstOrDefault(t => t.Id == id);
-        }
-
-        /// <summary>
-        /// Creates the TODO
-        /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        public Task<Town> Create(string name, string community)
-        {
-            Devon4NetLogger.Debug($"SetTown method from repository TownService with value : {name}");
-
-            var Town = new Town { TownName = name, Community = community};
-
-            return Create(Town);
-        }
-
-        /// <summary>
-        /// Deletes the TODO by id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<Guid> DeleteTodoById(Guid id)
-        {
-            Devon4NetLogger.Debug($"DeleteTownById method from repository TownService with value : {id}");
-            var deleted = await Delete(t => t.Id == id).ConfigureAwait(false);
-
-            if (deleted)
-            {
-                return id;
-            }
-
-            throw  new ApplicationException($"The Town entity {id} has not been deleted.");
+            Devon4NetLogger.Debug($"GetTownById method from repository UserService with value : {townId}");
+            return GetFirstOrDefault(t => t.Id == townId);
         }
     }
 }

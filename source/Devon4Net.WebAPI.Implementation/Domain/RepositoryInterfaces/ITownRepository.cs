@@ -17,33 +17,9 @@ namespace Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces
         /// </summary>
         Task<Town> GetTownByName(string townName);
 
-
         /// <summary>
-        /// 
+        /// GetTownById
         /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        Task<IList<Town>> GetTodo(Expression<Func<Town, bool>> predicate = null);
-
-        /// <summary>
-        /// GetTodoById
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<Town> GetTodoById(Guid id);
-
-        /// <summary>
-        /// Create
-        /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        Task<Town> Create(string name, string community);
-
-        /// <summary>
-        /// DeleteTodoById
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<Guid> DeleteTodoById(Guid id);
+        Task<Town> GetTownById(Guid townId);
     }
 }

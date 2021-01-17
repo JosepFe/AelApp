@@ -76,6 +76,13 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
                 await _userTownRepository.Delete(userTown).ConfigureAwait(false);
             }
 
+            var userTaxes = await _userTaxRepository.GetUserTaxesByUserId(user.Id).ConfigureAwait(false);
+            
+            foreach (var userTax in userTaxes)
+            {
+                await _userTaxRepository.Delete(userTax);
+            }
+
             await _userRepository.DeleteUserByNameAndSuername(name, surname).ConfigureAwait(false);
         }
 
@@ -171,6 +178,13 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
                 throw new AelNotFoundException($"The Tax with name: {taxName} from year: {taxYear} is not registered in the system");
             }
 
+            var town = await _townRepository.GetTownByName(townName).ConfigureAwait(false);
+
+            if (town == null)
+            {
+                throw new AelNotFoundException($"The Town with name: {townName} is not registered in the system");
+            }
+
             var userTax = await _userTaxRepository.GetUserTaxesByUserIdAndReferenceAndTaxId(user.Id, reference,tax.Id).ConfigureAwait(false); 
 
             if(userTax != null)
@@ -178,7 +192,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
                 throw new UserTaxAlreadyAssignedException($"The Tax with name: {taxName} from year: {taxYear} and reference {reference} already assigned to user with name {userName} and surname {userSurname}");
             }
 
-            await _userTaxRepository.CreateUserTax(tax.Id, user.Id, tax.TaxDeadlineDate, baseAmount, reference);
+            await _userTaxRepository.CreateUserTax(tax.Id, user.Id, town.Id, tax.TaxDeadlineDate, baseAmount, reference);
         }
 
         /// <summary>
@@ -246,7 +260,9 @@ namespace Devon4Net.WebAPI.Implementation.Business.InhabitantsManagement.Service
 
                 var userTaxUpdated = await UpdateUserTaxIfDateExpierd(userTax, tax.TaxDeadlineDate).ConfigureAwait(false);
 
-                userTaxesDto.Add(new UserTaxesDto { TaxName = tax.TaxName, TaxYear = tax.Year, AmountToPay = userTaxUpdated.AmountToPay, Reference = userTaxUpdated.Reference, PaymentDeadLine = userTaxUpdated.PaymentDeadlineDate, Paid = userTaxUpdated.Paid, Surcharge = userTaxUpdated.BaseAmount != userTaxUpdated.AmountToPay});
+                var town = await _townRepository.GetTownById(userTax.TownId).ConfigureAwait(false);
+
+                userTaxesDto.Add(new UserTaxesDto { TownName = town.TownName, TaxName = tax.TaxName, TaxYear = tax.Year, AmountToPay = userTaxUpdated.AmountToPay, Reference = userTaxUpdated.Reference, PaymentDeadLine = userTaxUpdated.PaymentDeadlineDate, Paid = userTaxUpdated.Paid, Surcharge = userTaxUpdated.BaseAmount != userTaxUpdated.AmountToPay});
             }
 
             return new UserTaxInformationDto { Name = user.Name, Surname = user.Surname, Taxes = userTaxesDto };

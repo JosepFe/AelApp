@@ -23,11 +23,11 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
         {
         }
 
-        public async Task CreateUserTax(Guid taxId, Guid userId, DateTime paymentDeadLine, double baseAmount, string reference)
+        public async Task CreateUserTax(Guid taxId, Guid userId, Guid townId, DateTime paymentDeadLine, double baseAmount, string reference)
         {
             Devon4NetLogger.Debug($"CreateUserTax method from repository UserTaxRepository with value : {taxId}, {userId}, {paymentDeadLine}, {baseAmount} & {reference}");
 
-            var userTax = new UserTax { TaxId = taxId ,UserId = userId, BaseAmount = baseAmount, AmountToPay = baseAmount, PaymentDeadlineDate = paymentDeadLine, AssignmentDate = DateTime.UtcNow, Reference = reference };
+            var userTax = new UserTax { TaxId = taxId ,UserId = userId, TownId = townId, BaseAmount = baseAmount, AmountToPay = baseAmount, PaymentDeadlineDate = paymentDeadLine, AssignmentDate = DateTime.UtcNow, Reference = reference };
 
             await Create(userTax).ConfigureAwait(false);
         }

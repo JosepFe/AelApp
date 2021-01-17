@@ -430,34 +430,6 @@
             Get the Town by name
             </summary>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.TownRepository.GetTodo(System.Linq.Expressions.Expression{System.Func{Devon4Net.WebAPI.Implementation.Domain.Entities.Town,System.Boolean}})">
-            <summary>
-            Get TODO method
-            </summary>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.TownRepository.GetTodoById(System.Guid)">
-            <summary>
-            Geto the TODO by id
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.TownRepository.Create(System.String,System.String)">
-            <summary>
-            Creates the TODO
-            </summary>
-            <param name="description"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Data.Repositories.TownRepository.DeleteTodoById(System.Guid)">
-            <summary>
-            Deletes the TODO by id
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Data.Repositories.UserRepository">
             <summary>
             Repository implementation for the TODOS
@@ -542,33 +514,10 @@
             GetTownByName
             </summary>
         </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.ITownRepository.GetTodo(System.Linq.Expressions.Expression{System.Func{Devon4Net.WebAPI.Implementation.Domain.Entities.Town,System.Boolean}})">
+        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.ITownRepository.GetTownById(System.Guid)">
             <summary>
-            
+            GetTownById
             </summary>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.ITownRepository.GetTodoById(System.Guid)">
-            <summary>
-            GetTodoById
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.ITownRepository.Create(System.String,System.String)">
-            <summary>
-            Create
-            </summary>
-            <param name="description"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.ITownRepository.DeleteTodoById(System.Guid)">
-            <summary>
-            DeleteTodoById
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
         </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces.IUserRepository">
             <summary>
